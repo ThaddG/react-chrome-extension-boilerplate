@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     popup: path.resolve('src/popup/popup.jsx'),
-    options: path.resolve('src/options/options.jsx')
+    options: path.resolve('src/options/options.jsx'),
   },
   module: {
     rules: [
@@ -20,14 +20,19 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env',
-                '@babel/preset-react'
-              ]
-            }
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+            },
           },
         ],
         exclude: /node_modules/,
+      },
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+      },
+      {
+        type: 'asset/resource',
+        test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/i,
       },
     ],
   },
@@ -41,11 +46,7 @@ module.exports = {
         },
       ],
     }),
-    ...getHtmlPlugins([
-      'popup',
-      'options'
-    ])
-    ,
+    ...getHtmlPlugins(['popup', 'options']),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -56,14 +57,20 @@ module.exports = {
     path: path.resolve('dist'),
     clean: true,
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
 
 function getHtmlPlugins(chunks) {
-  return chunks.map(chunk => (
-    new HtmlWebpackPlugin({
-      title: "React Extension",
-      filename: `${chunk}.html`,
-      chunks: [chunk]
-    })
-  ))
+  return chunks.map(
+    (chunk) =>
+      new HtmlWebpackPlugin({
+        title: 'React Extension',
+        filename: `${chunk}.html`,
+        chunks: [chunk],
+      })
+  );
 }
