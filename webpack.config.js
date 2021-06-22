@@ -31,10 +31,11 @@ module.exports = {
     ],
   },
   plugins: [
+    // copy all the files from src/static/ to dist/
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve('src/manifest.json'),
+          from: path.resolve('src/static'),
           to: path.resolve('dist'),
         },
       ],

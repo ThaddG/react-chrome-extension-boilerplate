@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "React Extension",
+  "description": "test",
+  "version": "1.0.0",
+  "icons": {
+    "16": "mask-icon.png",
+    "48": "mask-icon.png",
+    "128": "mask-icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "React Chrome Extension",
+    "default_icon": "mask-icon.png"
+  }
+}
