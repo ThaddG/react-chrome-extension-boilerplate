@@ -1,10 +1,9 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'cheap-module-source-map',
   entry: {
     popup: path.resolve('src/popup/popup.jsx'),
     options: path.resolve('src/options/options.jsx'),
@@ -39,6 +38,10 @@ module.exports = {
     ],
   },
   plugins: [
+    // clean (but dont wipe) the dist/ folder when switching prod and dev builds
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+    }),
     // copy all the files from src/static/ to dist/
     new CopyPlugin({
       patterns: [
