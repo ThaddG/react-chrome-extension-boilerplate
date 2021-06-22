@@ -12,5 +12,6 @@
     "default_popup": "popup.html",
     "default_title": "React Chrome Extension",
     "default_icon": "mask-icon.png"
-  }
+  },
+  "options_page": "options.html"
 }

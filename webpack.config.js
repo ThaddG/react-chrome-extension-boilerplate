@@ -7,6 +7,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     popup: path.resolve('src/popup/popup.jsx'),
+    options: path.resolve('src/options/options.jsx')
   },
   module: {
     rules: [
@@ -40,11 +41,11 @@ module.exports = {
         },
       ],
     }),
-    new HtmlWebpackPlugin({
-      title: 'React Chrome Extension',
-      filename: 'popup.html',
-      chunks: ['popup'],
-    }),
+    ...getHtmlPlugins([
+      'popup',
+      'options'
+    ])
+    ,
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -56,3 +57,13 @@ module.exports = {
     clean: true,
   },
 };
+
+function getHtmlPlugins(chunks) {
+  return chunks.map(chunk => (
+    new HtmlWebpackPlugin({
+      title: "React Extension",
+      filename: `${chunk}.html`,
+      chunks: [chunk]
+    })
+  ))
+}
