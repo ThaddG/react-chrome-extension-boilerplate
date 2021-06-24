@@ -2,6 +2,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const DotenvWebpackPlugin = require('dotenv-webpack');
 
 module.exports = {
   entry: {
@@ -38,6 +39,8 @@ module.exports = {
     ],
   },
   plugins: [
+    // dotenv support
+    new DotenvWebpackPlugin(),
     // clean (but dont wipe) the dist/ folder when switching prod and dev builds
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
